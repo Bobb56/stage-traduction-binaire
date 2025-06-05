@@ -106,7 +106,7 @@ J'ai effectué deux tests de performances : un test consiste à calculer les 100
 
 #### 1000 premiers nombres premiers en Neon :
 
-**Temps de calcul :**
+Temps de calcul :
 
 | Support d'exécution         | Temps  |
 | --------------------------- | ------ |
@@ -115,7 +115,7 @@ J'ai effectué deux tests de performances : un test consiste à calculer les 100
 | x86 box64 qemu avec dynarec | 19 s   |
 | sans dynarec                | 180 s  |
 
-**Facteur de ralentissement :**
+Facteur de ralentissement :
 
 | Support d'exécution         | Facteur |
 | --------------------------- | ------- |
@@ -126,7 +126,7 @@ J'ai effectué deux tests de performances : un test consiste à calculer les 100
 
 #### Produit matriciel 1000x1000 :
 
-**Temps de calcul :**
+Temps de calcul :
 
 | Support d'exécution         | Temps   |
 | --------------------------- | ------- |
@@ -135,7 +135,7 @@ J'ai effectué deux tests de performances : un test consiste à calculer les 100
 | x86 box64 qemu avec dynarec | 75 s    |
 | sans dynarec                | 12137 s |
 
-**Facteur de ralentissement :**
+Facteur de ralentissement :
 
 | Support d'exécution         | Facteur |
 | --------------------------- | ------- |
