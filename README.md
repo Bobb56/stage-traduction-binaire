@@ -104,12 +104,12 @@ Je mets ici [le lien qui explique comment compiler Box64](https://ksco.cc/box64-
 
 J'ai effectué deux tests de performances : un test consiste à calculer les 1000 premiers nombres premiers avec le langage de programmation [Neon](langage-neon.raphaael.fr), et un autre à multiplier entre elles deux matrices d'entiers de dimension 1000x1000. Voici les résultats obtenus avec la commande time :
 
-Temps de calcul Neon premiers.ne 1000 :
----------------------------------------
-natif x86			| ~0,32 s
-natif riscv dans qemu		| ~5 s
-x86 box64 qemu avec dynarec	| ~19 s
-sans dynarec			| ~180 s
+| Temps de calcul Neon premiers.ne 1000 |
+| ------------------------------------- |
+| natif x86                   | ~0,32 s |
+| natif riscv dans qemu	      | ~5 s    |
+| x86 box64 qemu avec dynarec | ~19 s   |
+| sans dynarec                | ~180 s  |
 
 
 Facteur de ralentissement Neon premiers.ne 1000 :
