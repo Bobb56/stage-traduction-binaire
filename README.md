@@ -110,3 +110,9 @@ Tout est expliqué ici :
 https://deepwiki.com/ptitSeb/box64
 
 https://box86.org/2024/07/revisiting-the-dynarec/
+
+https://box86.org/blog/
+
+Et le code source peut se révéler très utile pour comprendre certaines choses :
+
+https://github.com/ptitSeb/box64/tree/main/src
