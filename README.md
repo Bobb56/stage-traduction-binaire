@@ -87,4 +87,7 @@ Je précise que la commande indiquée sur (cette page)[] pour générer les Make
 cmake .. -D RV64=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo -D CMAKE_C_COMPILER=riscv64-linux-gnu-gcc -D USE_CCACHE=ON
 ```
 
+Je mets ici [le lien qui explique comment compiler Box64](https://ksco.cc/box64-for-riscv-guide/docs/box64/).
+
+
 #### Tests de performance de Box64 vs QEMU natif vs natif
