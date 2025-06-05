@@ -164,3 +164,6 @@ https://github.com/ptitSeb/box64/tree/main/src
 
 ## III - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
 
+Afin de bien comprendre les mécaniques de la traduction dynamique de binaires, j'ai implémenté un prototype d'interpréteur x86. Ce prototype d'interpréteur fonctionne sur la base suivante :
+
+Il lit un fichier binaire (au format ELF), charge en mémoire les segments qui voiv
