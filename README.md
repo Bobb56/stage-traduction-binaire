@@ -101,3 +101,12 @@ Je mets ici [le lien qui explique comment compiler Box64](https://ksco.cc/box64-
 
 
 ### Tests de performance de Box64 vs QEMU natif vs natif
+
+
+### Explications en détail de comment fonctionne Box64
+
+Tout est expliqué ici :
+
+https://deepwiki.com/ptitSeb/box64
+
+https://box86.org/2024/07/revisiting-the-dynarec/
