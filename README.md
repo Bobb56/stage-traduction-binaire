@@ -104,37 +104,45 @@ Je mets ici [le lien qui explique comment compiler Box64](https://ksco.cc/box64-
 
 J'ai effectué deux tests de performances : un test consiste à calculer les 1000 premiers nombres premiers avec le langage de programmation [Neon](langage-neon.raphaael.fr), et un autre à multiplier entre elles deux matrices d'entiers de dimension 1000x1000. Voici les résultats obtenus avec la commande time :
 
-| Temps de calcul Neon premiers.ne 1000 |
+#### 1000 premiers nombres premiers en Neon :
+
+**Temps de calcul :**
+
+| Support d'exécution         | Temps  |
+| ------------------------------------ |
+| natif x86                   | 0,32 s |
+| natif riscv dans qemu	      | 5 s    |
+| x86 box64 qemu avec dynarec | 19 s   |
+| sans dynarec                | 180 s  |
+
+**Facteur de ralentissement :**
+
+| Support d'exécution         | Facteur |
 | ------------------------------------- |
-| natif x86                   | ~0,32 s |
-| natif riscv dans qemu	      | ~5 s    |
-| x86 box64 qemu avec dynarec | ~19 s   |
-| sans dynarec                | ~180 s  |
+| natif x86                   | 1       |
+| natif riscv dans qemu	      | 16      |
+| x86 box64 qemu avec dynarec | 59      |
+| sans dynarec                | 563     |
 
+#### Produit matriciel 1000x1000 :
 
-Facteur de ralentissement Neon premiers.ne 1000 :
--------------------------------------------------
-natif x86			| 1
-natif riscv dans qemu		| 15.6
-x86 box64 qemu avec dynarec	| 59.3
-sans dynarec			| 563 s
+**Temps de calcul :**
 
+| Support d'exécution         | Temps   |
+| ------------------------------------- |
+| natif x86                   | 9 s     |
+| natif riscv dans qemu	      | 70 s    |
+| x86 box64 qemu avec dynarec | 75 s    |
+| sans dynarec                | 12137 s |
 
+**Facteur de ralentissement :**
 
-Temps de calcul matmul 1000x1000x1000 :
----------------------------------------
-natif x86			| ~9 s
-natif riscv dans qemu		| ~70 s
-x86 box64 qemu avec dynarec	| ~75 s
-sans dynarec			| ~12137 s
-
-
-Facteur de ralentissement matmul 1000x1000x1000 :
--------------------------------------------------
-natif x86			| 1
-natif riscv dans qemu		| 7.8
-x86 box64 qemu avec dynarec	| 8.3
-sans dynarec			| 1348.6
+| Support d'exécution         | Facteur |
+| ------------------------------------- |
+| natif x86                   | 1       |
+| natif riscv dans qemu	      | 8       |
+| x86 box64 qemu avec dynarec | 8       |
+| sans dynarec                | 1349    |
 
 
 ### Explications en détail de comment fonctionne Box64
