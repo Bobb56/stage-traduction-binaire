@@ -166,4 +166,12 @@ https://github.com/ptitSeb/box64/tree/main/src
 
 Afin de bien comprendre les mécaniques de la traduction dynamique de binaires, j'ai implémenté un prototype d'interpréteur x86. Ce prototype d'interpréteur fonctionne sur la base suivante :
 
-Il lit un fichier binaire (au format ELF), charge en mémoire les segments qui voiv
+Il lit un fichier binaire (au format ELF), charge en mémoire chaque segment à la bonne adresse, et exécute le code à partir du point d'entrée dans le fichier.
+
+Pour exécuter le code, le programme va chercher un certain nombre d'instructions à la suite après l'instruction à exécuter, "traduit" de bloc d'instructions en code exécutable dans une zone exécutable de la mémoire, et transfère l'exécution dans cette zone mémoire. Une fois que le bloc est terminé, soit il saute directement au bloc d'après, ou il revient à l'interpréteur pour traduire le bloc d'après.
+
+Comme ce programme fonctionne sur processeur x86 et exécute des binaires x86, la "traduction" n'est en fait qu'une réécriture consistant à remplacer les sauts par des appels au traducteur, intercepter les syscalls et écrire à la fin du bloc un morceau de code permettant de sauvegarder les registres et de retourner à l'interpréteur.
+
+Je dis interpréteur, mais rien n'est interprété, tout est exécuté nativement.
+
+Actuellement, les sauts (directs et indirects) ne sont pas pris en charge.
