@@ -26,7 +26,7 @@ apt-get install qemu-user-static
 
 Ensuite, pour lancer QEMU, les lignes de commandes sont assez complexes. Il y a plusieurs manières de charger un OS avec QEMU. D'abord, on peut lui spécifier une image disque contenant un OS entier, à ce moment là, QEMU démarre ce disque comme un BIOS classique. Dans le cas du RISCV, il est probable qu'il faille spécifier à QEMU quel BIOS utiliser via l'option -bios.
 On peut aussi spécifier à QEMU une image disque contenant uniquement le système de fichiers, pas de bootloader, et lui indiquer à côté le kernel à utiliser. C'est vers cette option que je me suis tourné.
-Pour faire tourner Linux dans QEMU RISCV, je me suis aidé de ce [https://canonical-ubuntu-boards.readthedocs-hosted.com/en/latest/how-to/qemu-riscv/](site), et j'ai téléchargé l'image disque d'Ubuntu que l'on peut trouver [https://ubuntu.com/download/risc-v](ici).
+Pour faire tourner Linux dans QEMU RISCV, je me suis aidé de ce [site](https://canonical-ubuntu-boards.readthedocs-hosted.com/en/latest/how-to/qemu-riscv/), et j'ai téléchargé l'image disque d'Ubuntu que l'on peut trouver [ici](https://ubuntu.com/download/risc-v).
 
 On nous indique un paquet à installer, qui permet de télécharger le kernel à utiliser, et finalement on n'a plus qu'à lancer la commande indiquée et ça fonctionne (en tous cas pour moi, ce n'est pas exclu que ça ne marche pas pour tout le monde, vu le nombre de tutos que j'ai testés avant que ça fonctionne).
 
