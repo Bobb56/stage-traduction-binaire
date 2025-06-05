@@ -50,10 +50,10 @@ systemctl poweroff
 #### D'autres tutos qui ne fonctionnent pas
 
 Comme je l'ai dit, ce n'est qu'après nombre de tentatives infructueuses que je n'ai réussi à faire fonctionner QEMU.
-J'ai en premiers lieu essayer de compiler moi-même un noyau Linux, que j'utilisais avec une image disque fabriquée à partir de BusyBox. Ensuite j'ai également testé le Berkeley BootLoader (BBL) avec une image disque de Fedora. Voici d'ailleurs [https://fedorapeople.org/groups/risc-v/disk-images/readme.txt](une page qui explique comment utiliser Fedora RISCV dans QEMU).
+J'ai en premiers lieu essayer de compiler moi-même un noyau Linux, que j'utilisais avec une image disque fabriquée à partir de BusyBox. Ensuite j'ai également testé le Berkeley BootLoader (BBL) avec une image disque de Fedora. Voici d'ailleurs [une page qui explique comment utiliser Fedora RISCV dans QEMU](https://fedorapeople.org/groups/risc-v/disk-images/readme.txt).
 On peut télécharger une image disque qui s'appelle stage4-disk.img, et ensuite lancer QEMU avec le BBL et cette image disque.
 
-ce tutoriel n'a pas fonctionné pour moi, en revanche c'est en m'intéressant à [https://github.com/oxtra/oxtra](Oxtra) (un traducteur dynamique de binaires x86 vers RISCV, comme Box64), que j'ai pu avoir un QEMU à moitié fonctionnel. En effet Oxtra met à notre disposition un conteneur Docker avec QEMU préinstallé, le BBL et l'image stage4-disk.img à l'intérieur. Il suffit de lancer le conteneur et de démarrer le script shell start.sh, et Fedora se lance dans QEMU. Le seul problème est que, bien qu'internet soit accessible depuis Fedora à l'intérieur de QEMU, les DNS ne fonctionnent pas. C'est donc compliqué d'installer des commandes, des applications. En revanche on peut toujours envoyer des fichiers via scp, à condition d'ouvrir le port 10000 sur le conteneur. On peut pour ça lancer le conteneur avec cette commande :
+ce tutoriel n'a pas fonctionné pour moi, en revanche c'est en m'intéressant à [Oxtra]([Oxtra](https://github.com/oxtra/oxtra)) (un traducteur dynamique de binaires x86 vers RISCV, comme Box64), que j'ai pu avoir un QEMU à moitié fonctionnel. En effet Oxtra met à notre disposition un conteneur Docker avec QEMU préinstallé, le BBL et l'image stage4-disk.img à l'intérieur. Il suffit de lancer le conteneur et de démarrer le script shell start.sh, et Fedora se lance dans QEMU. Le seul problème est que, bien qu'internet soit accessible depuis Fedora à l'intérieur de QEMU, les DNS ne fonctionnent pas. C'est donc compliqué d'installer des commandes, des applications. En revanche on peut toujours envoyer des fichiers via scp, à condition d'ouvrir le port 10000 sur le conteneur. On peut pour ça lancer le conteneur avec cette commande :
 ```
 sudo docker run -it --rm -p 10000:10000 plainerman/qemuriscv:fedora
 ```
@@ -70,7 +70,7 @@ Une fois que l'on a installé la toolchain, il suffit de spécifier une option d
 Ensuite, il ne reste plus qu'à envoyer l'exécutable généré (un exécutable RISCV donc) via scp à QEMU ainsi que les librairies dynamiques de Box64, et on peut le lancer.
 C'est sans compter sur le fait que l'image disque stage4-disk.img date de 2018 et qui n'a donc pas les bonnes versions de la libc standard.
 
-Je mets d'ailleurs le lien pour télécharger le BBL et stage4-disk.img mis à disposition par Fedora : https://fedorapeople.org/groups/risc-v/disk-images/
+Je mets d'ailleurs [le lien](https://fedorapeople.org/groups/risc-v/disk-images/) pour télécharger le BBL et stage4-disk.img mis à disposition par Fedora.
 
 Donc impossible de faire fonctionner Box64 dans le conteneur Docker.
 
