@@ -144,6 +144,10 @@ Facteur de ralentissement :
 | x86 box64 qemu avec dynarec | 8       |
 | sans dynarec                | 1349    |
 
+On remarque des différences très notables lors du passage d'un étage de virtualisation à un autre entre les deux programmes testés. Ces différences restent encore à être élucidées.
+
+
+
 
 ### Explications en détail de comment fonctionne Box64
 
