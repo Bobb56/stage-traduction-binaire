@@ -3,16 +3,23 @@
 ## I - Les solutions de traduction dynamique de binaires déjà existantes : Box64 et QEMU
 
 Box64 est un traducteur dynamique de binaires x86_64 vers plusieurs autres architectures cibles incluant ARM64, RISCV64. Box64 a besoin pour fonctionner d'être exécuté sous Linux et ne peut traduire que des exécutables Linux. C'est un traducteur axé sur la performance dont l'un des principaux buts est de pouvoir faire tourner à vitesse acceptable des jeux vidéos demandants en ressources.
+
 Box64 est un traducteur dynamique, c'est-à-dire qu'il traduit le code binaire x86_64 en code natif au fur et à mesure de l'exécution. Une fois traduite, une portion de code n'a plus à être traduite de nouveau et pourra être exécutée nativement la prochaine fois que son exécution sera demandée. La traduction se fait par blocs : lorsqu'il s'agit de traduire une nouvelle portion de code, Box64 découpe un bloc de code, puis le traduit, et l'exécute d'une traite. Ensuite soit il saute à un nouveau bloc déjà traduit et l'exécute à son tour, soit il arrive dans une zone non encore traduite, crée un bloc et recommence le processus.
+
 Pour traduire un bloc de code, Box64 décode chaque instruction x86_64 du bloc, et va remplacer chaque instruction par des instructions correspondantes dans le langage machine hôte. L'architecture x86_64 étant particulièrement complexe et riche en instructions, déterminer les instructions équivalentes à chaque instruction est un travail particulièrement long et fastidieux.
+
 De plus, une fois ce traducteur de code écrit pour générer du code ARM64 par exemple, il faut reprendre tout ce travail de zéro pour pouvoir générer du code RISCV64.
 
 
 QEMU est un émulateur rapide généraliste utilisant un traducteur dynamique binaire portable. Par portable, on entend que QEMU résoud partiellement le problème de la réécriture du traducteur dynamique.
+
 Le premier but de QEMU est de pouvoir exécuter un système d'exploitation non modifié dans un autre système d'exploitation, peu importe l'architecture cible et l'architecture hôte.
 En plus de l'émulation complète de la machine, QEMU est capable d'exécuter directement des binaires Linux d'une architecture différente de l'architecture hôte.
+
 Pour régler le problème de la difficulté du portage des émulateurs tels que Box64, QEMU utilise un générateur automatique de générateur de code appelé dyngen. Les générateurs de code générés par dyngen ne transforment pas directement du code binaire de la machine cible vers la machine hôte, mais passe par une représentation intermédiaire des instructions à traduire appelée les micro-operations. 
+
 Ainsi pour émuler une nouvelle architecture avec QEMU, le seul travail est de traduire à la main chaque instruction en micro-opérations. Et contrairement à Box64, une fois ce travail effectué, l'architecture cible peut être émulée sur n'importe quelle autre architecture.
+
 Pour cela, les micro-opérations sont implémentées une et une seule fois dans des petites fonctions C, et compilées dans des fichiers objet grâce à GCC. Ainsi le travail de génération de code spécifique machine est réalisé par GCC. dyngen utilise ensuite ces fichiers objet pour générer le générateur de code.
 
 ### Installation de Box64 dans QEMU sur Linux
@@ -26,6 +33,7 @@ apt-get install qemu-user-static
 
 Ensuite, pour lancer QEMU, les lignes de commandes sont assez complexes. Il y a plusieurs manières de charger un OS avec QEMU. D'abord, on peut lui spécifier une image disque contenant un OS entier, à ce moment là, QEMU démarre ce disque comme un BIOS classique. Dans le cas du RISCV, il est probable qu'il faille spécifier à QEMU quel BIOS utiliser via l'option -bios.
 On peut aussi spécifier à QEMU une image disque contenant uniquement le système de fichiers, pas de bootloader, et lui indiquer à côté le kernel à utiliser. C'est vers cette option que je me suis tourné.
+
 Pour faire tourner Linux dans QEMU RISCV, je me suis aidé de ce [site](https://canonical-ubuntu-boards.readthedocs-hosted.com/en/latest/how-to/qemu-riscv/), et j'ai téléchargé l'image disque d'Ubuntu que l'on peut trouver [ici](https://ubuntu.com/download/risc-v).
 
 On nous indique un paquet à installer, qui permet de télécharger le kernel à utiliser, et finalement on n'a plus qu'à lancer la commande indiquée et ça fonctionne (en tous cas pour moi, ce n'est pas exclu que ça ne marche pas pour tout le monde, vu le nombre de tutos que j'ai testés avant que ça fonctionne).
@@ -51,6 +59,7 @@ systemctl poweroff
 
 Comme je l'ai dit, ce n'est qu'après nombre de tentatives infructueuses que je n'ai réussi à faire fonctionner QEMU.
 J'ai en premiers lieu essayer de compiler moi-même un noyau Linux, que j'utilisais avec une image disque fabriquée à partir de BusyBox. Ensuite j'ai également testé le Berkeley BootLoader (BBL) avec une image disque de Fedora. Voici d'ailleurs [une page qui explique comment utiliser Fedora RISCV dans QEMU](https://fedorapeople.org/groups/risc-v/disk-images/readme.txt).
+
 On peut télécharger une image disque qui s'appelle stage4-disk.img, et ensuite lancer QEMU avec le BBL et cette image disque.
 
 ce tutoriel n'a pas fonctionné pour moi, en revanche c'est en m'intéressant à [Oxtra]([Oxtra](https://github.com/oxtra/oxtra)) (un traducteur dynamique de binaires x86 vers RISCV, comme Box64), que j'ai pu avoir un QEMU à moitié fonctionnel. En effet Oxtra met à notre disposition un conteneur Docker avec QEMU préinstallé, le BBL et l'image stage4-disk.img à l'intérieur. Il suffit de lancer le conteneur et de démarrer le script shell start.sh, et Fedora se lance dans QEMU. Le seul problème est que, bien qu'internet soit accessible depuis Fedora à l'intérieur de QEMU, les DNS ne fonctionnent pas. C'est donc compliqué d'installer des commandes, des applications. En revanche on peut toujours envoyer des fichiers via scp, à condition d'ouvrir le port 10000 sur le conteneur. On peut pour ça lancer le conteneur avec cette commande :
@@ -59,6 +68,7 @@ sudo docker run -it --rm -p 10000:10000 plainerman/qemuriscv:fedora
 ```
 
 Une fois dans le Fedora dans QEMU dans le conteneur Docker, j'ai tout de même essayer d'installer Box64. Il y a deux manières de faire fonctionner Box64 dans QEMU. La première est de cloner le repo Github directement dans QEMU, et de lancer la compilation dans QEMU. Cette technique a quelques inconvénients :
+
 - Quand les DNS ne fonctionnent pas, c'est compliqué de cloner un repo Github. Ce souci peut quand même être réglé en envoyant le contenu du repo compressé via scp, et en le décompressant.
 - Ensuite, pour compiler Box64, il y a besoin de la commande CMAKE, pour fabriquer les Makefiles. Or comme il n'y a pas de DNS fonctionnel, on ne peut pas installer CMAKE. Une solution a été de fabriquer les Makefile avant d'envoyer le contenu du github avec scp. Mais ça ne fonctionne pas non plus puisque l'étape de compilation (```make```) a elle aussi besoin de cmake pour fonctionner.
 - Quand bien même on arrivait à lancer la compilation de Box64, celle-ci serait très lente car elle se ferait à travers la couche de virtualisation de QEMU.
