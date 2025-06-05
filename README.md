@@ -109,7 +109,7 @@ J'ai effectué deux tests de performances : un test consiste à calculer les 100
 **Temps de calcul :**
 
 | Support d'exécution         | Temps  |
-| ------------------------------------ |
+| --------------------------- | ------ |
 | natif x86                   | 0,32 s |
 | natif riscv dans qemu	      | 5 s    |
 | x86 box64 qemu avec dynarec | 19 s   |
@@ -118,7 +118,7 @@ J'ai effectué deux tests de performances : un test consiste à calculer les 100
 **Facteur de ralentissement :**
 
 | Support d'exécution         | Facteur |
-| ------------------------------------- |
+| --------------------------- | ------- |
 | natif x86                   | 1       |
 | natif riscv dans qemu	      | 16      |
 | x86 box64 qemu avec dynarec | 59      |
@@ -129,7 +129,7 @@ J'ai effectué deux tests de performances : un test consiste à calculer les 100
 **Temps de calcul :**
 
 | Support d'exécution         | Temps   |
-| ------------------------------------- |
+| --------------------------- | ------- |
 | natif x86                   | 9 s     |
 | natif riscv dans qemu	      | 70 s    |
 | x86 box64 qemu avec dynarec | 75 s    |
@@ -138,7 +138,7 @@ J'ai effectué deux tests de performances : un test consiste à calculer les 100
 **Facteur de ralentissement :**
 
 | Support d'exécution         | Facteur |
-| ------------------------------------- |
+| --------------------------- | ------- |
 | natif x86                   | 1       |
 | natif riscv dans qemu	      | 8       |
 | x86 box64 qemu avec dynarec | 8       |
