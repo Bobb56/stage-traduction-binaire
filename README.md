@@ -380,9 +380,15 @@ Le composant matériel ayant pour rôle de traduire les instructions ne pourra p
 
 Voici un histogramme montrant les 50 opcodes les plus utilisés lors de l'exécution de Neon sur la détection de nombres premiers :
 
-![](50_most_used_opcodes.png)
+![](50_most_used_opcodes_neon.png)
 
+Voici les opcodes les plus utilisés dans les programmes de Embench, tous confondus :
 
+![](50_most_used_opcodes_embench.png)
+
+Et voici la comparaison entre Neon et Embench :
+
+![](50_most_used_opcodes_neon_embench.png)
 
 ## III - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
 
