@@ -374,7 +374,7 @@ Et le code source peut se révéler très utile pour comprendre certaines choses
 
 https://github.com/ptitSeb/box64/tree/main/src
 
-## II - Calcul des instructions x86_64 les plus souvent exécutées
+## II - Statistiques sur les instructions x86_64 les plus fréquemment exécutées
 
 Le composant matériel ayant pour rôle de traduire les instructions ne pourra pas traiter le jeu d'instructions x86 entier. Il faut donc sélectionner de manière pertinente les instructions les plus utilisées dans les programmes afin de traiter ces instructions en matériel en priorité.
 
