@@ -153,6 +153,169 @@ Hypothèses :
 
 #### Score de performance calculé à l'aide de la suite de benchmarks [embench-iot](https://github.com/embench/embench-iot)
 
+Les benchmarks ont été réalisés comme les deux tests précédents sur les 4 supports d'exécution suivants :
+(1) Zorin OS 13.3 Core sur HP HP Dragonfly 13.5 inch G4 Notebook PC (32 GB RAM, 13th Gen Intel® Core™ i7-1365U × 12)
+
+(2) QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.26) exécutant Ubuntu 14.2.0-19ubuntu2 simulant la plateforme riscv-virtio, avec 16 GiB de RAM et 8 coeurs tournant sur le système (1)
+
+(3) Box64 riscv64 v0.3.5 e4edb65c with Dynarec exécuté par le système (2) lui-même exécuté par le système (1)
+
+(4) Box64 v0.3.5 e4edb65c exécuté par le système (2) lui-même exécuté par le système (1)
+
+Note: Il est important que le temps vu par les programmes tournant dans QEMU corresponde à du temps réel pour que les résultats soient comparables.
+
+Voici un programme python :
+```python
+import time
+import sys
+t = time.monotonic()
+while time.monotonic() - t < int(sys.argv[1]):
+    pass
+```
+La commande ```time python3 test_time.py 10``` donne les résultats suivants :
+
+Dans QEMU :
+```
+real	0m10.792s
+user	0m10.446s
+sys	0m0.341s
+```
+
+Et la commande ```time python3 test_time.py 100``` donne les résultats suivants :
+
+Dans QEMU :
+```
+real	1m40.816s
+user	1m40.361s
+sys	0m0.284s
+```
+
+Ce qui confirme que le temps perçu dans QEMU est bien le temps réel, et que la commande time (utilisée par Embench) renvoie un temps cohérent.
+
+La version d'embench-iot utilisée est la version de la branche master de https://github.com/embench/embench-iot du 6 Juin 2025.
+
+Voici les résultats obtenus en temps de calcul :
+
+Natif x86 :
+
+| Benchmark         | Speed       |
+|-------------------|-------------|
+| aha-mont64        | 4004000.00  |
+| crc32             | 4010000.00  |
+| cubic             | 3931000.00  |
+| edn               | 4010000.00  |
+| huffbench         | 4120000.00  |
+| matmult-int       | 3985000.00  |
+| md5sum            | 4002000.00  |
+| minver            | 3998000.00  |
+| nbody             | 2808000.00  |
+| nettle-aes        | 4026000.00  |
+| nettle-sha256     | 3997000.00  |
+| nsichneu          | 4001000.00  |
+| picojpeg          | 4030000.00  |
+| primecount        | 3834000.00  |
+| qrduino           | 4253000.00  |
+| sglib-combined    | 3981000.00  |
+| slre              | 4010000.00  |
+| st                | 4080000.00  |
+| statemate         | 4001000.00  |
+| tarfind           | 4033000.00  |
+| ud                | 3999000.00  |
+| wikisort          | 2779000.00  |
+| **Geometric mean**| **3884344.72** |
+| **Geometric SD**  | **1.11**     |
+| **Geometric range** | **823436.42** |
+
+Natif QEMU :
+
+| Benchmark          | Speed  |
+|--------------------|--------|
+| aha-mont64         | 57.20  |
+| crc32              | 57.29  |
+| cubic              | 56.16  |
+| edn                | 57.29  |
+| huffbench          | 51.50  |
+| matmult-int        | 56.93  |
+| md5sum             | 66.70  |
+| minver             | 57.11  |
+| nbody              | 40.11  |
+| nettle-aes         | 57.51  |
+| nettle-sha256      | 57.10  |
+| nsichneu           | 36.37  |
+| picojpeg           | 50.38  |
+| primecount         | 54.77  |
+| qrduino            | 53.16  |
+| sglib-combined     | 44.23  |
+| slre               | 66.83  |
+| st                 | 68.00  |
+| statemate          | 66.68  |
+| tarfind            | 50.41  |
+| ud                 | 57.13  |
+| wikisort           | 39.70  |
+| **Geometric mean** | 53.95  |
+| **Geometric SD**   | 1.18   |
+| **Geometric range**| 18.00  |
+
+Box64 dynarec dans QEMU :
+
+| Benchmark          | Speed |
+|--------------------|-------|
+| aha-mont64         | 2.34  |
+| crc32              | 3.68  |
+| cubic              | 3.02  |
+| edn                | 3.21  |
+| huffbench          | 3.55  |
+| matmult-int        | 3.44  |
+| md5sum             | 3.57  |
+| minver             | 3.39  |
+| nbody              | 2.38  |
+| nettle-aes         | 3.27  |
+| nettle-sha256      | 3.07  |
+| nsichneu           | 3.28  |
+| picojpeg           | 2.90  |
+| primecount         | 3.45  |
+| qrduino            | 2.71  |
+| sglib-combined     | 3.09  |
+| slre               | 3.16  |
+| st                 | 2.98  |
+| statemate          | 3.57  |
+| tarfind            | 3.42  |
+| ud                 | 3.51  |
+| wikisort           | 2.14  |
+| **Geometric mean** | 3.11  |
+| **Geometric SD**   | 1.16  |
+| **Geometric range**| 0.91  |
+
+Box64 interprété (sans dynarec) dans QEMU :
+
+| Benchmark           | Speed |
+|---------------------|-------|
+| aha-mont64          | 2.03  |
+| crc32               | 2.07  |
+| cubic               | 5.17  |
+| edn                 | 1.55  |
+| huffbench           | 2.77  |
+| matmult-int         | 2.25  |
+| md5sum              | 3.42  |
+| minver              | 3.81  |
+| nbody               | 3.74  |
+| nettle-aes          | 2.24  |
+| nettle-sha256       | 2.08  |
+| nsichneu            | 2.44  |
+| picojpeg            | 1.93  |
+| primecount          | 1.55  |
+| qrduino             | 1.75  |
+| sglib-combined      | 2.25  |
+| slre                | 2.07  |
+| st                  | 5.16  |
+| statemate           | 3.36  |
+| tarfind             | 3.23  |
+| ud                  | 2.48  |
+| wikisort            | 2.96  |
+| **Geometric mean**  | 2.58  |
+| **Geometric SD**    | 1.40  |
+| **Geometric range** | 1.77  |
+
 
 
 
