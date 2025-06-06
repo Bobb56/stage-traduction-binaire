@@ -154,13 +154,14 @@ Hypothèses :
 #### Score de performance calculé à l'aide de la suite de benchmarks [embench-iot](https://github.com/embench/embench-iot)
 
 Les benchmarks ont été réalisés comme les deux tests précédents sur les 4 supports d'exécution suivants :
-(1) Zorin OS 13.3 Core sur HP HP Dragonfly 13.5 inch G4 Notebook PC (32 GB RAM, 13th Gen Intel® Core™ i7-1365U × 12)
 
-(2) QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.26) exécutant Ubuntu 14.2.0-19ubuntu2 simulant la plateforme riscv-virtio, avec 16 GiB de RAM et 8 coeurs tournant sur le système (1)
+**(1)** Zorin OS 13.3 Core sur HP HP Dragonfly 13.5 inch G4 Notebook PC (32 GB RAM, 13th Gen Intel® Core™ i7-1365U × 12)
 
-(3) Box64 riscv64 v0.3.5 e4edb65c with Dynarec exécuté par le système (2) lui-même exécuté par le système (1)
+**(2)** QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.26) exécutant Ubuntu 14.2.0-19ubuntu2 simulant la plateforme riscv-virtio, avec 16 GiB de RAM et 8 coeurs tournant sur le système **(1)**
 
-(4) Box64 v0.3.5 e4edb65c exécuté par le système (2) lui-même exécuté par le système (1)
+**(3)** Box64 riscv64 v0.3.5 e4edb65c with Dynarec exécuté par le système **(2)** lui-même exécuté par le système **(1)**
+
+**(4)** Box64 v0.3.5 e4edb65c exécuté par le système **(2)** lui-même exécuté par le système **(1)**
 
 Note: Il est important que le temps vu par les programmes tournant dans QEMU corresponde à du temps réel pour que les résultats soient comparables.
 
