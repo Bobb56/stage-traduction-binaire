@@ -102,7 +102,7 @@ Je mets ici [le lien qui explique comment compiler Box64](https://ksco.cc/box64-
 
 ### Tests de performance de Box64 vs QEMU natif vs natif
 
-J'ai effectué deux tests de performances : un test consiste à calculer les 1000 premiers nombres premiers avec le langage de programmation [Neon](https://langage-neon.raphaael.fr), et un autre à multiplier entre elles deux matrices d'entiers de dimension 1000x1000. Voici les résultats obtenus avec la commande time :
+J'ai dans un premiers temps effectué deux tests de performances : un test consiste à calculer les 1000 premiers nombres premiers avec le langage de programmation [Neon](https://langage-neon.raphaael.fr), et un autre à multiplier entre elles deux matrices d'entiers de dimension 1000x1000. Voici les résultats obtenus avec la commande time :
 
 #### 1000 premiers nombres premiers en Neon :
 
@@ -146,9 +146,13 @@ Facteur de ralentissement :
 
 On remarque des différences très notables lors du passage d'un étage de virtualisation à un autre entre les deux programmes testés. Ces différences restent encore à être élucidées.
 
-**Hypothèses :**
+Hypothèses :
 - Pour la différence de perte de performance entre QEMU et Box64 dynarec avec Neon premiers.ne et calcul matriciel : Box64 a beaucoup moins de code à traduire dans le cas du calcul matriciel. Le code à traduire fait probablement un seul bloc de traduction (dynablock), et Box64 ne perd pas de temps à passer d'un bloc à l'autre.
 - Pour la différence de performances entre le calcul matriciel interprété par Box64 et Neon premiers.ne interprété par Box64 : Il serait compliqué d'envisager un ralentissement de l'interpréteur spécifiquement pour le calcul matriciel. Une hypothèse plus probable serait l'inverse : pour les autres supports d'exécution que l'interpréteur, 
+
+
+#### Score de performance calculé à l'aide de la suite de benchmarks [embench-iot](https://github.com/embench/embench-iot)
+
 
 
 
