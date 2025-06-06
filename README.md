@@ -252,6 +252,7 @@ Natif QEMU :
 | tarfind            | 50.41  |
 | ud                 | 57.13  |
 | wikisort           | 39.70  |
+|--------------------|--------|
 | **Geometric mean** | 53.95  |
 | **Geometric SD**   | 1.18   |
 | **Geometric range**| 18.00  |
