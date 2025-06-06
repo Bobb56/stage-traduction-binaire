@@ -376,6 +376,13 @@ https://github.com/ptitSeb/box64/tree/main/src
 
 ## II - Calcul des instructions x86_64 les plus souvent exécutées
 
+Le composant matériel ayant pour rôle de traduire les instructions ne pourra pas traiter le jeu d'instructions x86 entier. Il faut donc sélectionner de manière pertinente les instructions les plus utilisées dans les programmes afin de traiter ces instructions en matériel en priorité.
+
+Voici un histogramme montrant les 50 opcodes les plus utilisés lors de l'exécution de Neon sur la détection de nombres premiers :
+
+![Alt text](50_most_used_opcodes.png)
+
+
 
 ## III - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
 
