@@ -92,7 +92,7 @@ qemu-img resize -f raw ubuntu-24.04-preinstalled-server-riscv64.img +5G
 ```
 
 Ensuite, j'ai directement envoyé dans QEMU l'exécutable compilé sur mon PC avec la toolchain RISCV64, les librairies dynamiques, et Box64 a parfaitement bien fonctionné.
-Je précise que la commande indiquée sur (cette page)[] pour générer les Makefile avant de compiler Box64 va lancer une compilation de Box64 en mode interpréteur. Il est possible d'activer le recompilateur dynamique (dynarec) qui accélère drastiquement l'exécution par rapport à l'interpréteur en ajoutant l'option ```-D RV64_DYNAREC``` à cette commande :
+Je précise que la commande indiquée sur [cette page](https://ksco.cc/box64-for-riscv-guide/docs/box64/) pour générer les Makefile avant de compiler Box64 va lancer une compilation de Box64 en mode interpréteur. Il est possible d'activer le recompilateur dynamique (dynarec) qui accélère drastiquement l'exécution par rapport à l'interpréteur en ajoutant l'option ```-D RV64_DYNAREC``` à cette commande :
 ```
 cmake .. -D RV64=1 -D CMAKE_BUILD_TYPE=RelWithDebInfo -D CMAKE_C_COMPILER=riscv64-linux-gnu-gcc -D USE_CCACHE=ON
 ```
