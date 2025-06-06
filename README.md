@@ -146,6 +146,9 @@ Facteur de ralentissement :
 
 On remarque des différences très notables lors du passage d'un étage de virtualisation à un autre entre les deux programmes testés. Ces différences restent encore à être élucidées.
 
+**Hypothèses :**
+- Pour la différence de perte de performance entre QEMU et Box64 dynarec avec Neon premiers.ne et calcul matriciel : Box64 a beaucoup moins de code à traduire dans le cas du calcul matriciel. Le code à traduire fait probablement un seul bloc de traduction (dynablock), et Box64 ne perd pas de temps à passer d'un bloc à l'autre.
+- Pour la différence de performances entre le calcul matriciel interprété par Box64 et Neon premiers.ne interprété par Box64 : Il serait compliqué d'envisager un ralentissement de l'interpréteur spécifiquement pour le calcul matriciel. Une hypothèse plus probable serait l'inverse : pour les autres supports d'exécution que l'interpréteur, 
 
 
 
