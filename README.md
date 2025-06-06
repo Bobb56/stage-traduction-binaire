@@ -380,7 +380,7 @@ Le composant matériel ayant pour rôle de traduire les instructions ne pourra p
 
 Voici un histogramme montrant les 50 opcodes les plus utilisés lors de l'exécution de Neon sur la détection de nombres premiers :
 
-![Alt text](50_most_used_opcodes.png)
+![](50_most_used_opcodes.png)
 
 
 
