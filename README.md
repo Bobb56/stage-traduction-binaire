@@ -226,6 +226,46 @@ Natif x86 :
 | **Geometric SD**  | **1.11**     |
 | **Geometric range** | **823436.42** |
 
+À noter que ce test-là est extrêmement imprécis : tous les temps mesurés étaient de 1 centième de seconde. Les résultats de vitesse différents proviennent du calcul effectué par embench : ces résultats sont affichés en mode relatif, c'est à dire que le score affiché est calculé en divisant un temps mesuré sur une [plateforme de référence](https://github.com/embench/embench-iot/blob/master/doc/README.md#reference-platform) (ARM Cortex M4 cadencé à 16 MHz) par le temps mesuré. Le score correspond donc au facteur de performance entre cette plateforme de référence et la plateforme à laquelle on s'intéresse. Concrètement, un score de vitesse moyen de 1 365 737 pour le test natif x86 signifie que les programmes on tourné plus d' **1 million de fois plus vite** que sur la plateforme de référence.
+
+Ça signifie aussi qu'avec un processeur puissant comme le Intel Core i7 de 13 ième génération cadencé à 5 GHZ et deux couches de virtualisation, on arrive à être seulement 3 fois plus performant qu'un ARM Cortex M4 cadencé à 16 MHz.
+
+Le problème de précision de ce test sur le processeur en mode natif vient évidemment du fait que Embench est une suite de benchmarks designée spécifiquement pour les plateformes embarquées. Les programmes de test s'exécutent donc très rapidement sur un processeur puissant.
+
+En exécutant 500 fois chaque test, puis en divisant le temps d'exécution par 500, le temps chronométré est de l'ordre de la seconde. L'exécution des programmes est ici chronométrée par la fonction ```time.monotonic``` de python et non la commande système time utilisée par Embench. La différence est négligeable.
+
+Voici le nouveau tableau que l'on obtient :
+
+| Benchmark           | Speed        |
+|---------------------|--------------|
+| aha-mont64          | 1398150.31   |
+| crc32               | 1289110.11   |
+| cubic               | 1493646.82   |
+| edn                 | 1341956.39   |
+| huffbench           | 1373628.04   |
+| matmult-int         | 1395584.85   |
+| md5sum              | 1533390.47   |
+| minver              | 1598443.21   |
+| nbody               | 1101520.50   |
+| nettle-aes          | 1399255.34   |
+| nettle-sha256       | 1326179.02   |
+| nsichneu            | 1396123.59   |
+| picojpeg            | 1351479.11   |
+| primecount          | 943412.22    |
+| qrduino             | 1165301.17   |
+| sglib-combined      | 1336124.37   |
+| slre                | 1413921.26   |
+| st                  | 1619779.83   |
+| statemate           | 1697619.71   |
+| tarfind             | 1535308.31   |
+| ud                  | 1509359.70   |
+| wikisort            | 1097357.82   |
+| **Geometric mean**  | 1365736.95   |
+| **Geometric SD**    | 1.15         |
+| **Geometric range** | 374442.67    |
+
+Voici les autres tests, non modifiés :
+
 Natif QEMU :
 
 | Benchmark          | Speed  |
