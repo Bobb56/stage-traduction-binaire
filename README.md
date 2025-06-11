@@ -393,7 +393,7 @@ Et voici la comparaison entre Neon et Embench :
 
 ## III - Mise en place d'un modèle paramétrique des performances d'exécution d'un programme traduit dynamiquement en matériel et logiciel
 
-Afin d'évaluer les gains possibles en performances grâce à une traduction matérielle, nous mettons en place un modèle qui nous permettra d'évaluer en fonction de plusieurs paramètres la vitesse d'exécution totale d'un programme.
+Afin d'évaluer les gains possibles en performances grâce à une traduction matérielle, nous mettons en place un modèle qui nous permettra d'évaluer en fonction de plusieurs paramètres la vitesse d'exécution totale d'un programme. Pour les mesures que nous effectuons dans Box64, nous prenons à chaque fois en compte l'intégralité des programmes de Embench-iot
 
 Nous prenons en compte les paramètres suivants :
 - Le ratio de performances de la traduction en matériel par rapport au logiciel
@@ -412,7 +412,20 @@ Pour calculer une telle formule il est nécessaire de mesurer certaines grandeur
 - La taille moyenne des blocs que l'on cherche à traduire (plus on traduit des blocs longs, plus on a de chances d'avoir besoin du logiciel pour le faire)
 - Le temps de passage du matériel au logiciel
 
-Pour cette dernière grandeur, il est très difficile de l'estimer de manière pertinente avec les autres grandeurs, nous allons donc dans un premier temps considérer que la seule pénalité de la traduction en lociciel est le temps que ça prend.
+Pour les deux premières grandeurs, on mesure expérimentalement dans Box64 :
+- Taille moyenne des blocs : 
+- Nombre moyen de blocs à traduire : 
+
+Et pour le temps de passage du matériel au logiciel, il est très difficile de l'estimer de manière pertinente avec les autres grandeurs, nous allons donc dans un premier temps considérer que la seule pénalité de la traduction en lociciel est le temps que ça prend.
+
+Et il nous manque également les probabilités de traiter un bloc entièrement en matériel ou bien de le traiter en logiciel. Ces probablilités dépendent du nombre d'instructions que l'on traite en matériel, mais aussi du nombre moyen d'instructions consécutives pouvant être traitées en matériel et de la longueur des blocs.
+
+Voici un graphique montrant l'évolution du nombre moyen d'instructions consécutives pouvant être traitées en matériel en fonction du nombre d'instructions traitées en matériel :
+
+
+
+Voici maintenant un graphique montrant la probabilité de traiter un bloc entièrement en matériel en fonction du nombre d'instructions traitées en matériel, en se basant sur la taille moyenne des blocs de Box64 :
+
 
 
 ## IV - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
