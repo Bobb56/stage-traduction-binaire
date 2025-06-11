@@ -390,7 +390,29 @@ Et voici la comparaison entre Neon et Embench :
 
 ![](50_most_used_opcodes_neon_embench.png)
 
-## III - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
+
+## III - Mise en place d'un modèle paramétrique des performances d'exécution d'un programme traduit dynamiquement en matériel et logiciel
+
+Afin d'évaluer les gains possibles en performances grâce à une traduction matérielle, nous mettons en place un modèle qui nous permettra d'évaluer en fonction de plusieurs paramètres la vitesse d'exécution totale d'un programme.
+
+Nous prenons en compte les paramètres suivants :
+- Le ratio de performances de la traduction en matériel par rapport au logiciel
+- Le nombre d'instructions traitées en matériel (choisies par ordre décroissant de fréquence)
+
+Nous avons les égalités suivantes :
+
+Temps total logiciel = Temps trad logiciel + Temps exec
+
+Temps total matériel+logiciel = Temps trad matériel+logiciel + Temps exec
+
+Temps trad matériel + logiciel = Nombre de blocs * (Temps trad matériel * probabilité de traiter un bloc entièrement en matériel + (Temps trad logiciel + Temps de passage du matériel au logiciel) * probabilité de traiter un bloc en logiciel)
+
+
+Pour mettre en place un tel modèle, il est nécessaire de mesurer certaines grandeurs.
+
+
+
+## IV - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
 
 Afin de bien comprendre les mécaniques de la traduction dynamique de binaires, j'ai implémenté un prototype d'interpréteur x86. Ce prototype d'interpréteur fonctionne sur la base suivante :
 
