@@ -407,9 +407,12 @@ Temps total matériel+logiciel = Temps trad matériel+logiciel + Temps exec
 
 Temps trad matériel + logiciel = Nombre de blocs * (Temps trad matériel * probabilité de traiter un bloc entièrement en matériel + (Temps trad logiciel + Temps de passage du matériel au logiciel) * probabilité de traiter un bloc en logiciel)
 
+Pour calculer une telle formule il est nécessaire de mesurer certaines grandeurs :
+- Le nombre moyen de blocs à traduire au cours d'une exécution
+- La taille moyenne des blocs que l'on cherche à traduire (plus on traduit des blocs longs, plus on a de chances d'avoir besoin du logiciel pour le faire)
+- Le temps de passage du matériel au logiciel
 
-Pour mettre en place un tel modèle, il est nécessaire de mesurer certaines grandeurs.
-
+Pour cette dernière grandeur, il est très difficile de l'estimer de manière pertinente avec les autres grandeurs, nous allons donc dans un premier temps considérer que la seule pénalité de la traduction en lociciel est le temps que ça prend.
 
 
 ## IV - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
