@@ -390,6 +390,12 @@ Et voici la comparaison entre Neon et Embench :
 
 ![](50_most_used_opcodes_neon_embench.png)
 
+Bien que ces 3 graphiques soient parlants pour réaliser à quel point la distribution des instructions dans un programme x86 est hétérogène, il est plus précis de prendre en compte en plus des opcodes les préfixes des instructions. Ceux-ci peuvent changer la sémantique des instructions, et un opcode peut signifier des instructions très différentes s'il est utilisé avec des préfixes différents.
+
+Voici la distribution des opcodes+préfixes exécutés dans la totalité des programmes Embench-iot :
+
+**TODO**
+
 
 ## III - Mise en place d'un modèle paramétrique des performances d'exécution d'un programme traduit dynamiquement en matériel et logiciel
 
@@ -413,8 +419,8 @@ Pour calculer une telle formule il est nécessaire de mesurer certaines grandeur
 - Le temps de passage du matériel au logiciel
 
 Pour les deux premières grandeurs, on mesure expérimentalement dans Box64 :
-- Taille moyenne des blocs : 
-- Nombre moyen de blocs à traduire : 
+- Taille moyenne des blocs : **TODO**
+- Nombre moyen de blocs à traduire : **TODO**
 
 Et pour le temps de passage du matériel au logiciel, il est très difficile de l'estimer de manière pertinente avec les autres grandeurs, nous allons donc dans un premier temps considérer que la seule pénalité de la traduction en lociciel est le temps que ça prend.
 
@@ -422,11 +428,11 @@ Et il nous manque également les probabilités de traiter un bloc entièrement e
 
 Voici un graphique montrant l'évolution du nombre moyen d'instructions consécutives pouvant être traitées en matériel en fonction du nombre d'instructions traitées en matériel :
 
-
+**TODO**
 
 Voici maintenant un graphique montrant la probabilité de traiter un bloc entièrement en matériel en fonction du nombre d'instructions traitées en matériel, en se basant sur la taille moyenne des blocs de Box64 :
 
-
+**TODO**
 
 ## IV - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
 
