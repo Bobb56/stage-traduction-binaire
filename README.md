@@ -394,7 +394,7 @@ Bien que ces 3 graphiques soient parlants pour réaliser à quel point la distri
 
 Voici la distribution des opcodes+préfixes exécutés dans la totalité des programmes Embench-iot :
 
-**TODO**
+![](100_most_used_instructions_embench.png)
 
 
 ## III - Mise en place d'un modèle paramétrique des performances d'exécution d'un programme traduit dynamiquement en matériel et logiciel
