@@ -441,6 +441,23 @@ Nous allons donc mettre en place un algorithme choisissant explicitement l'ordre
 ![](anociht100_order2.png)
 
 J'ai donc tenté une autre approche.
+Pour estimer à quel point un ensemble d'instructions traitées en matériel est mieux qu'un autre, je calcule un score.
+
+Ce qu'on veut, c'est que lorsque l'on envoie un bloc d'instructions à traduire au traducteur matériel, ce bloc d'instructions soit suffisamment long, et qu'il y ait suffisamment de blocs d'instructions répondant à ces critères. En effet, si on cherche juste des blocs d'instructions longs, il suffit de prendre directement des intructions à la suite dans le programme. Donc on veut des blocs longs, et on en veut beaucoup.
+
+Mais est ce que c'est dérangeant si l'ajout d'une instruction traitée en matériel augmente non seulement la taille des blocs longs, mais également le nombre de blocs de taille 1 ? Je ne pense pas. On veut simplement plus de blocs longs, et des blocs plus longs. Il faut donc calculer un score récompenant la présence d'un grand nombre de longs blocs mais ne pénalisant pas la présence de beaucoup de petits blocs en plus. Calculer la moyenne des longueurs des blocs ne convient donc pas, car plus il y a des instructions seules ou isolées, plus le score baisse, même si le nombre de blocs de grande taille ne diminue pas ou même augmente.
+
+Le score que j'ai utilisé dans un premier temps est la moyenne pour toutes les instructions de la longueur du bloc commençant à cette instruction. Cela peut ressembler à ce que l'on faisait déjà avec la moyenne des longueurs des blocs, mais c'est fondamentalement différent.
+
+Auparavant, on prenait n blocs au hasard, et on calculait la moyenne de leurs longueurs.
+
+Là, on prend tous les blocs (c.à.d tous les blocs commençant à une instruction différente), et on fait la moyenne de leurs longueurs. Ce qui veut dire que l'on compte plusieurs fois les mêmes blocs. Par exemple s'il y a un bloc de taille 5, on va compter le bloc de taille 5, plus le bloc de taille 4 qui commence juste après, etc.
+
+Pour comparer les résultats de ce nouvel ordre de choix d'instructions, j'utilise en revanche la même méthode que pour les graphiques précédents, c'est-à-dire la moyenne de la longueur des blocs avec des blocs pris au hasard. Ce graphique peut donc être directement comparé aux précédents :
+
+![](1st_result_smart_sort_2.png)
+
+On voit que dépassé 40 instructions, on reste environ, à une moyenne de 2000 instructions par bloc, contre au plus 500 précédemment.
 
 Voici maintenant un graphique montrant la probabilité de traiter un bloc entièrement en matériel en fonction du nombre d'instructions traitées en matériel, en se basant sur la taille moyenne des blocs de Box64 :
 
