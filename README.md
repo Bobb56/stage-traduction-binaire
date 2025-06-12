@@ -428,7 +428,15 @@ Et il nous manque également les probabilités de traiter un bloc entièrement e
 
 Voici un graphique montrant l'évolution du nombre moyen d'instructions consécutives pouvant être traitées en matériel en fonction du nombre d'instructions traitées en matériel :
 
-**TODO**
+![](average_number_of_consecutive_instructions_hardware_trad_100_2.png)
+
+Ce graphique est très perturbant, et montre une évolution de la taille moyenne des blocs par sauts brusques. Voici ce que l'on peut en déduire : il semblerait que l'ajout de certaines instructions provoque une augmentation brusque de la taille de certains blocs, tandis que la taille des autres blocs reste similaire (augmentation de l'écart-type, mais aussi de la moyenne globale), et qu'au contraire, l'ajout des autres instructions ne provoque pas d'augmentation significative de la taille des blocs. 
+
+Ce que l'on fait ici, c'est ajouter les instructions par fréquence décroissante dans les programmes. Or rien de dit que les deux instructions les plus fréquentes par exemple sont souvent à la suite dans les programmes. Ainsi, l'ajout des instructions par ordre d'apparition n'est pas pertinente, et n'est pas liée directement à l'augmentation de la longueur moyenne des blocs.
+
+On pourrait donc ajouter les instructions qui provoquent des paliers plus tôt, et cela permettrait une montée de la taille des blocs plus progressive.
+
+Nous allons donc par la suite mettre en place un algorithme choisissant explicitement l'ordre des instructions de manière à maximiser la longueur des blocs.
 
 Voici maintenant un graphique montrant la probabilité de traiter un bloc entièrement en matériel en fonction du nombre d'instructions traitées en matériel, en se basant sur la taille moyenne des blocs de Box64 :
 
