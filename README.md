@@ -436,7 +436,11 @@ Ce que l'on fait ici, c'est ajouter les instructions par fréquence décroissant
 
 On pourrait donc ajouter les instructions qui provoquent des paliers plus tôt, et cela permettrait une montée de la taille des blocs plus progressive.
 
-Nous allons donc par la suite mettre en place un algorithme choisissant explicitement l'ordre des instructions de manière à maximiser la longueur des blocs.
+Nous allons donc mettre en place un algorithme choisissant explicitement l'ordre des instructions de manière à maximiser la longueur des blocs. J'ai d'abord tenté pour cet algorithme de partir d'une liste d'opcodes contenant uniquement l'opcode le plus fréquent, et de calculer pour chaque opcode restant la longueur moyenne des blocs obtenue en rajoutant cet opcode à la liste d'opcodes traités en matériel, puis de choisir celui donnant la meilleure moyenne, et ainsi de suite. Cet algorithme ne fonctionne pas, donne des résultats très médiocres, bien moins bons que la sélection naïve d'opcodes dans l'ordre de fréquence d'apparition :
+
+![](anociht100_order2.png)
+
+J'ai donc tenté une autre approche.
 
 Voici maintenant un graphique montrant la probabilité de traiter un bloc entièrement en matériel en fonction du nombre d'instructions traitées en matériel, en se basant sur la taille moyenne des blocs de Box64 :
 
