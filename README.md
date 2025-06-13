@@ -199,31 +199,31 @@ Voici les résultats obtenus en temps de calcul :
 
 Natif x86 :
 
-| Benchmark         | Speed       |
-|-------------------|-------------|
-| aha-mont64        | 4004000.00  |
-| crc32             | 4010000.00  |
-| cubic             | 3931000.00  |
-| edn               | 4010000.00  |
-| huffbench         | 4120000.00  |
-| matmult-int       | 3985000.00  |
-| md5sum            | 4002000.00  |
-| minver            | 3998000.00  |
-| nbody             | 2808000.00  |
-| nettle-aes        | 4026000.00  |
-| nettle-sha256     | 3997000.00  |
-| nsichneu          | 4001000.00  |
-| picojpeg          | 4030000.00  |
-| primecount        | 3834000.00  |
-| qrduino           | 4253000.00  |
-| sglib-combined    | 3981000.00  |
-| slre              | 4010000.00  |
-| st                | 4080000.00  |
-| statemate         | 4001000.00  |
-| tarfind           | 4033000.00  |
-| ud                | 3999000.00  |
-| wikisort          | 2779000.00  |
-| **Geometric mean**| **3884344.72** |
+| Benchmark         | Speed         |
+|-------------------|---------------|
+| aha-mont64        | 4 004 000     |
+| crc32             | 4 010 000     |
+| cubic             | 3 931 000     |
+| edn               | 4 010 000     |
+| huffbench         | 4 120 000     |
+| matmult-int       | 3 985 000     |
+| md5sum            | 4 002 000     |
+| minver            | 3 998 000     |
+| nbody             | 2 808 000     |
+| nettle-aes        | 4 026 000     |
+| nettle-sha256     | 3 997 000     |
+| nsichneu          | 4 001 000     |
+| picojpeg          | 4 030 000     |
+| primecount        | 3 834 000     |
+| qrduino           | 4 253 000     |
+| sglib-combined    | 3 981 000     |
+| slre              | 4 010 000     |
+| st                | 4 080 000     |
+| statemate         | 4 001 000     |
+| tarfind           | 4 033 000     |
+| ud                | 3 999 000     |
+| wikisort          | 2 779 000     |
+| **Geometric mean**| **3 884 344** |
 | **Geometric SD**  | **1.11**     |
 | **Geometric range** | **823436.42** |
 
