@@ -237,33 +237,33 @@ En exécutant 500 fois chaque test, puis en divisant le temps d'exécution par 5
 
 Voici le nouveau tableau que l'on obtient :
 
-| Benchmark           | Speed        |
-|---------------------|--------------|
-| aha-mont64          | 1398150.31   |
-| crc32               | 1289110.11   |
-| cubic               | 1493646.82   |
-| edn                 | 1341956.39   |
-| huffbench           | 1373628.04   |
-| matmult-int         | 1395584.85   |
-| md5sum              | 1533390.47   |
-| minver              | 1598443.21   |
-| nbody               | 1101520.50   |
-| nettle-aes          | 1399255.34   |
-| nettle-sha256       | 1326179.02   |
-| nsichneu            | 1396123.59   |
-| picojpeg            | 1351479.11   |
-| primecount          | 943412.22    |
-| qrduino             | 1165301.17   |
-| sglib-combined      | 1336124.37   |
-| slre                | 1413921.26   |
-| st                  | 1619779.83   |
-| statemate           | 1697619.71   |
-| tarfind             | 1535308.31   |
-| ud                  | 1509359.70   |
-| wikisort            | 1097357.82   |
-| **Geometric mean**  | 1365736.95   |
-| **Geometric SD**    | 1.15         |
-| **Geometric range** | 374442.67    |
+| Benchmark           | Speed       |
+|---------------------|-------------|
+| aha-mont64          | 1 398 150   |
+| crc32               | 1 289 110   |
+| cubic               | 1 493 646   |
+| edn                 | 1 341 956   |
+| huffbench           | 1 373 628   |
+| matmult-int         | 1 395 584   |
+| md5sum              | 1 533 390   |
+| minver              | 1 598 443   |
+| nbody               | 1 101 520   |
+| nettle-aes          | 1 399 255   |
+| nettle-sha256       | 1 326 179   |
+| nsichneu            | 1 396 123   |
+| picojpeg            | 1 351 479   |
+| primecount          |   943 412   |
+| qrduino             | 1 165 301   |
+| sglib-combined      | 1 336 124   |
+| slre                | 1 413 921   |
+| st                  | 1 619 779   |
+| statemate           | 1 697 619   |
+| tarfind             | 1 535 308   |
+| ud                  | 1 509 359   |
+| wikisort            | 1 097 357   |
+| **Geometric mean**  | 1 365 736   |
+| **Geometric SD**    | 1.15        |
+| **Geometric range** | 374 442     |
 
 Voici les autres tests, non modifiés :
 
@@ -445,7 +445,7 @@ Pour les deux premières grandeurs, on mesure expérimentalement dans Box64 :
 | tarfind           | 43                       | 7                        |
 | ud                | 35                       | 13                       |
 | wikisort          | 88                       | 11                       |
-|**Sur l'ensemble** | 1209                     | 21                       |
+|**Sur l'ensemble** | 1 209                    | 21                       |
 
 
 Et pour le temps de passage du matériel au logiciel, il est très difficile de l'estimer de manière pertinente avec les autres grandeurs, nous allons donc dans un premier temps considérer que la seule pénalité de la traduction en lociciel est le temps que ça prend.
@@ -496,6 +496,15 @@ En fait ce graphique est encore plus précis que ça : Chaque point est calculé
 
 La différence entre les deux courbes n'est pas significative, mais on voit que l'ordre déterminé surpasse l'ordre canonique.
 
+Nous avons désormais quasiment tout ce dont nous avond besoin pour mettre en place ce modèle d'évaluation des performances. Il manque encore simplement une mesure de la distribution du temps passé à traduire les blocs/exécuter les blocs/faire des choses entre les deux.
+
+En effet, si Box64 passe la moitié du temps à traduire des blocs, une amélioration de la vitesse de traduction aura plus d'impact sur la vitesse finale que s'il passe seulement 10% de son temps à traduire des blocs.
+
+Voici une évaluation en TICK du temps passé dans quelques programmes de Embench :
+
+| Programme    | Traduction de blocs | Exécution de blocs | Autre    |
+| ------------ | ------------------- | ------------------ | -------- |
+| matmult-int  | 33 086              | 1 827              | 57 852   |
 
 
 ## IV - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
