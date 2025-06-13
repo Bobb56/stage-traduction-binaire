@@ -422,10 +422,10 @@ Pour les deux premières grandeurs, on mesure expérimentalement dans Box64 :
 
 | Programme         | Taille moyenne des blocs |
 | ----------------- | ------------------------ |
-| aha-mont64        | 2.34                     |
-| crc32             | 3.68                     |
-| cubic             | 3.02                     |
-| edn               | 3.21                     |
+| aha-mont64        | 13                       |
+| crc32             | 5                        |
+| cubic             | 9                        |
+| edn               | 15                       |
 | huffbench         | 3.55                     |
 | matmult-int       | 3.44                     |
 | md5sum            | 3.57                     |
@@ -447,31 +447,31 @@ Pour les deux premières grandeurs, on mesure expérimentalement dans Box64 :
 | **Total**         |                          |
 
 
-| Programme         | Nombre de blocs traduits |
-| ----------------- | ------------------------ |
-| aha-mont64        | 2.34                     |
-| crc32             | 3.68                     |
-| cubic             | 3.02                     |
-| edn               | 3.21                     |
-| huffbench         | 3.55                     |
-| matmult-int       | 3.44                     |
-| md5sum            | 3.57                     |
-| minver            | 3.39                     |
-| nbody             | 2.38                     |
-| nettle-aes        | 3.27                     |
-| nettle-sha256     | 3.07                     |
-| nsichneu          | 3.28                     |
-| picojpeg          | 2.90                     |
-| primecount        | 3.45                     |
-| qrduino           | 2.71                     |
-| sglib-combined    | 3.09                     |
-| slre              | 3.16                     |
-| st                | 2.98                     |
-| statemate         | 3.57                     |
-| tarfind           | 3.42                     |
-| ud                | 3.51                     |
-| wikisort          | 2.14                     |
-| **Total**         |                          |
+| Programme         | Nombre de blocs traduits | Taille moyenne des blocs |
+| ----------------- | ------------------------ | ------------------------ |
+| aha-mont64        | 29                       | 13                       |
+| crc32             | 35                       | 5                        |
+| cubic             | 53                       | 9                        |
+| edn               | 41                       | 15                       |
+| huffbench         | 49                       | 13                       |
+| matmult-int       | 35                       | 8                        |
+| md5sum            | 46                       | 10                       |
+| minver            | 32                       | 14                       |
+| nbody             | 32                       | 10                       |
+| nettle-aes        | 39                       | 22                       |
+| nettle-sha256     | 45                       | 38                       |
+| nsichneu          | 29                       | 176                      |
+| picojpeg          | 139                      | 16                       |
+| primecount        | 31                       | 6                        |
+| qrduino           | 164                      | 31                       |
+| sglib-combined    | 84                       | 19                       |
+| slre              | 81                       | 17                       |
+| st                | 32                       | 14                       |
+| statemate         | 47                       | 18                       |
+| tarfind           | 43                       | 7                        |
+| ud                | 35                       | 13                       |
+| wikisort          | 88                       | 11                       |
+|**Sur l'ensemble** | 1209                     | 21                       |
 
 
 Et pour le temps de passage du matériel au logiciel, il est très difficile de l'estimer de manière pertinente avec les autres grandeurs, nous allons donc dans un premier temps considérer que la seule pénalité de la traduction en lociciel est le temps que ça prend.
@@ -511,7 +511,9 @@ Pour comparer les résultats de ce nouvel ordre de choix d'instructions, j'utili
 
 On voit que dépassé 40 instructions, on reste environ, à une moyenne de 2000 instructions par bloc, contre au plus 500 précédemment.
 
-Voici maintenant un graphique montrant la probabilité de traiter un bloc entièrement en matériel en fonction du nombre d'instructions traitées en matériel, en se basant sur la taille moyenne des blocs de Box64 :
+En utilisant la taille moyenne des blocs mesurée dans Box64 avec les programmes de Embench, on peut maintenant estimer la probabilité qu'un bloc pris au hasard puisse être traduit entièrement en matériel, en fonction du nombre d'instructions gérées par le matériel.
+
+En fait ce graphique est encore plus précis que ça : Chaque point est calculé non pas avec la taille moyenne des blocs et le nombre de blocs, mais directement avec chaque taille de chaque bloc traduit.
 
 **TODO**
 
