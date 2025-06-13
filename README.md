@@ -421,31 +421,31 @@ Pour calculer une telle formule il est nécessaire de mesurer certaines grandeur
 Pour les deux premières grandeurs, on mesure expérimentalement dans Box64 :
 
 
-| Programme         | Nombre de blocs traduits | Taille moyenne des blocs |
-| ----------------- | ------------------------ | ------------------------ |
-| aha-mont64        | 29                       | 13                       |
-| crc32             | 35                       | 5                        |
-| cubic             | 53                       | 9                        |
-| edn               | 41                       | 15                       |
-| huffbench         | 49                       | 13                       |
-| matmult-int       | 35                       | 8                        |
-| md5sum            | 46                       | 10                       |
-| minver            | 32                       | 14                       |
-| nbody             | 32                       | 10                       |
-| nettle-aes        | 39                       | 22                       |
-| nettle-sha256     | 45                       | 38                       |
-| nsichneu          | 29                       | 176                      |
-| picojpeg          | 139                      | 16                       |
-| primecount        | 31                       | 6                        |
-| qrduino           | 164                      | 31                       |
-| sglib-combined    | 84                       | 19                       |
-| slre              | 81                       | 17                       |
-| st                | 32                       | 14                       |
-| statemate         | 47                       | 18                       |
-| tarfind           | 43                       | 7                        |
-| ud                | 35                       | 13                       |
-| wikisort          | 88                       | 11                       |
-|**Sur l'ensemble** | 1 209                    | 21                       |
+| Programme         | Nombre de blocs traduits | Taille moyenne des blocs | Nombre d'instructions traduites |
+| ----------------- | ------------------------ | ------------------------ | ------------------------------- |
+| aha-mont64        | 29                       | 13                       | 377                             |
+| crc32             | 35                       | 5                        | 175                             |
+| cubic             | 53                       | 9                        | 477                             |
+| edn               | 41                       | 15                       | 615                             |
+| huffbench         | 49                       | 13                       | 637                             |
+| matmult-int       | 35                       | 8                        | 280                             |
+| md5sum            | 46                       | 10                       | 460                             |
+| minver            | 32                       | 14                       | 448                             |
+| nbody             | 32                       | 10                       | 320                             |
+| nettle-aes        | 39                       | 22                       | 858                             |
+| nettle-sha256     | 45                       | 38                       | 1 710                           |
+| nsichneu          | 29                       | 176                      | 5 104                           |
+| picojpeg          | 139                      | 16                       | 2 224                           |
+| primecount        | 31                       | 6                        | 186                             |
+| qrduino           | 164                      | 31                       | 5 084                           |
+| sglib-combined    | 84                       | 19                       | 1 596                           |
+| slre              | 81                       | 17                       | 1 377                           |
+| st                | 32                       | 14                       | 448                             |
+| statemate         | 47                       | 18                       | 846                             |
+| tarfind           | 43                       | 7                        | 301                             |
+| ud                | 35                       | 13                       | 455                             |
+| wikisort          | 88                       | 11                       | 968                             |
+|**Sur l'ensemble** | 1 209                    | 21                       | 25 389                          |
 
 
 Et pour le temps de passage du matériel au logiciel, il est très difficile de l'estimer de manière pertinente avec les autres grandeurs, nous allons donc dans un premier temps considérer que la seule pénalité de la traduction en lociciel est le temps que ça prend.
@@ -505,7 +505,24 @@ Voici une évaluation en TICK du temps passé dans quelques programmes de Embenc
 | Programme    | Traduction de blocs | Exécution de blocs | Autre    |
 | ------------ | ------------------- | ------------------ | -------- |
 | matmult-int  | 33 086              | 1 827              | 57 852   |
+| primecount   | 77 796              | 1 207              | 157 288  |
+| nsichneu     | 214 816             | 1 242              | 179 804  |
+| qrduino      | 420 520             | 1 871              | 208 483  |
+| nettle-sha256| 150 184             | 1 349              | 155 111  |
+| crc32        | 79 343              | 1 711              | 162 743  |
+| tarfind      | 89 215              | 1 346              | 153 919  |
+| cubic        | 156 247             | 1 243              | 162 660  |
+| picojpeg     | 154 473             | 806                | 66 082   |
+| slre         | 68 132              | 475                | 66 916   |
+| wikisort     | 67 853              | 478                | 64 126   |
 
+On remarque que pour certains programmes comme matmult-int, primecount, crc32, le temps de traduction est bien en dessous du temps passé à faire autre chose (changer de bloc d'exécution, ...). En revanche, pour d'autres programmes comme nsichneu, qrduino ou picojpeg, le temps de traduction est plus important que le temps passé à faire autre chose.
+
+Dans tous les cas, le temps passé dans les blocs en eux-mêmes est toujours très négligeable par rapport au reste.
+
+Pour optimiser Box64, il y a donc deux points à optimiser : la phase de traduction, et les moments où Box64 change de bloc durant l'exécution.
+
+Pour bien comprendre comment se répartit le temps d'exécution, il est aussi nécessaire de voir comment évolue le temps pour un même programme qui tourne plus ou moins longtemps.
 
 ## IV - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
 
