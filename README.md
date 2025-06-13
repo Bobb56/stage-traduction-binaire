@@ -420,32 +420,6 @@ Pour calculer une telle formule il est nécessaire de mesurer certaines grandeur
 
 Pour les deux premières grandeurs, on mesure expérimentalement dans Box64 :
 
-| Programme         | Taille moyenne des blocs |
-| ----------------- | ------------------------ |
-| aha-mont64        | 13                       |
-| crc32             | 5                        |
-| cubic             | 9                        |
-| edn               | 15                       |
-| huffbench         | 3.55                     |
-| matmult-int       | 3.44                     |
-| md5sum            | 3.57                     |
-| minver            | 3.39                     |
-| nbody             | 2.38                     |
-| nettle-aes        | 3.27                     |
-| nettle-sha256     | 3.07                     |
-| nsichneu          | 3.28                     |
-| picojpeg          | 2.90                     |
-| primecount        | 3.45                     |
-| qrduino           | 2.71                     |
-| sglib-combined    | 3.09                     |
-| slre              | 3.16                     |
-| st                | 2.98                     |
-| statemate         | 3.57                     |
-| tarfind           | 3.42                     |
-| ud                | 3.51                     |
-| wikisort          | 2.14                     |
-| **Total**         |                          |
-
 
 | Programme         | Nombre de blocs traduits | Taille moyenne des blocs |
 | ----------------- | ------------------------ | ------------------------ |
