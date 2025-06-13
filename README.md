@@ -524,6 +524,8 @@ Pour optimiser Box64, il y a donc deux points à optimiser : la phase de traduct
 
 Pour bien comprendre comment se répartit le temps d'exécution, il est aussi nécessaire de voir comment évolue le temps pour un même programme qui tourne plus ou moins longtemps.
 
+Pour cela nous allons analyser le temps de la même manière mais sur des benchmarks modifiés, où nous allons exécuter 10 fois de suite la fonction main() du programme.
+
 ## IV - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
 
 Afin de bien comprendre les mécaniques de la traduction dynamique de binaires, j'ai implémenté un prototype d'interpréteur x86. Ce prototype d'interpréteur fonctionne sur la base suivante :
