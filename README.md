@@ -492,7 +492,11 @@ En utilisant la taille moyenne des blocs mesurée dans Box64 avec les programmes
 
 En fait ce graphique est encore plus précis que ça : Chaque point est calculé non pas avec la taille moyenne des blocs et le nombre de blocs, mais directement avec chaque taille de chaque bloc traduit.
 
-**TODO**
+![](proba_bloc_traduit_hard.png)
+
+La différence entre les deux courbes n'est pas significative, mais on voit que l'ordre déterminé surpasse l'ordre canonique.
+
+
 
 ## IV - Mise au point d'un prototype d'interpréteur x86 utilisant les mécanismes de la traduction dynamique de binaires
 
