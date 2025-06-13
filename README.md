@@ -454,7 +454,7 @@ Et il nous manque également les probabilités de traiter un bloc entièrement e
 
 Voici un graphique montrant l'évolution du nombre moyen d'instructions consécutives pouvant être traitées en matériel en fonction du nombre d'instructions traitées en matériel :
 
-![](average_number_of_consecutive_instructions_hardware_trad_100_2.png)
+![](block_size_trad_naive_sort_100.png)
 
 Ce graphique est très perturbant, et montre une évolution de la taille moyenne des blocs par sauts brusques. Voici ce que l'on peut en déduire : il semblerait que l'ajout de certaines instructions provoque une augmentation brusque de la taille de certains blocs, tandis que la taille des autres blocs reste similaire (augmentation de l'écart-type, mais aussi de la moyenne globale), et qu'au contraire, l'ajout des autres instructions ne provoque pas d'augmentation significative de la taille des blocs. 
 
@@ -462,9 +462,7 @@ Ce que l'on fait ici, c'est ajouter les instructions par fréquence décroissant
 
 On pourrait donc ajouter les instructions qui provoquent des paliers plus tôt, et cela permettrait une montée de la taille des blocs plus progressive.
 
-Nous allons donc mettre en place un algorithme choisissant explicitement l'ordre des instructions de manière à maximiser la longueur des blocs. J'ai d'abord tenté pour cet algorithme de partir d'une liste d'opcodes contenant uniquement l'opcode le plus fréquent, et de calculer pour chaque opcode restant la longueur moyenne des blocs obtenue en rajoutant cet opcode à la liste d'opcodes traités en matériel, puis de choisir celui donnant la meilleure moyenne, et ainsi de suite. Cet algorithme ne fonctionne pas, donne des résultats très médiocres, bien moins bons que la sélection naïve d'opcodes dans l'ordre de fréquence d'apparition :
-
-![](anociht100_order2.png)
+Nous allons donc mettre en place un algorithme choisissant explicitement l'ordre des instructions de manière à maximiser la longueur des blocs. J'ai d'abord tenté pour cet algorithme de partir d'une liste d'opcodes contenant uniquement l'opcode le plus fréquent, et de calculer pour chaque opcode restant la longueur moyenne des blocs obtenue en rajoutant cet opcode à la liste d'opcodes traités en matériel, puis de choisir celui donnant la meilleure moyenne, et ainsi de suite. Cet algorithme ne fonctionne pas, donne des résultats très médiocres, bien moins bons que la sélection naïve d'opcodes dans l'ordre de fréquence d'apparition.
 
 J'ai donc tenté une autre approche.
 Pour estimer à quel point un ensemble d'instructions traitées en matériel est mieux qu'un autre, je calcule un score.
@@ -473,17 +471,22 @@ Ce qu'on veut, c'est que lorsque l'on envoie un bloc d'instructions à traduire 
 
 Mais est ce que c'est dérangeant si l'ajout d'une instruction traitée en matériel augmente non seulement la taille des blocs longs, mais également le nombre de blocs de taille 1 ? Je ne pense pas. On veut simplement plus de blocs longs, et des blocs plus longs. Il faut donc calculer un score récompenant la présence d'un grand nombre de longs blocs mais ne pénalisant pas la présence de beaucoup de petits blocs en plus. Calculer la moyenne des longueurs des blocs ne convient donc pas, car plus il y a des instructions seules ou isolées, plus le score baisse, même si le nombre de blocs de grande taille ne diminue pas ou même augmente.
 
-Le score que j'ai utilisé dans un premier temps est la moyenne pour toutes les instructions de la longueur du bloc commençant à cette instruction. Cela peut ressembler à ce que l'on faisait déjà avec la moyenne des longueurs des blocs, mais c'est fondamentalement différent.
+Le score que j'ai utilisé dans un premier temps est la moyenne pour toutes les instructions de la longueur du bloc commençant à cette instruction. Cela peut ressembler à ce que l'on faisait déjà avec la moyenne des longueurs des blocs, mais c'est un peu différent.
 
 Auparavant, on prenait n blocs au hasard, et on calculait la moyenne de leurs longueurs.
 
 Là, on prend tous les blocs (c.à.d tous les blocs commençant à une instruction différente), et on fait la moyenne de leurs longueurs. Ce qui veut dire que l'on compte plusieurs fois les mêmes blocs. Par exemple s'il y a un bloc de taille 5, on va compter le bloc de taille 5, plus le bloc de taille 4 qui commence juste après, etc.
 
-Pour comparer les résultats de ce nouvel ordre de choix d'instructions, j'utilise en revanche la même méthode que pour les graphiques précédents, c'est-à-dire la moyenne de la longueur des blocs avec des blocs pris au hasard. Ce graphique peut donc être directement comparé aux précédents :
+Pour comparer les résultats de ce nouvel ordre de choix d'instructions, j'utilise en revanche la même méthode que pour le graphique précédent, c'est-à-dire la moyenne de la longueur des blocs avec des blocs pris au hasard. Ce graphique peut donc être directement comparé au précédent :
 
-![](1st_result_smart_sort_2.png)
+![](block_size_trad_smart_sort_100.png)
 
-On voit que dépassé 40 instructions, on reste environ, à une moyenne de 2000 instructions par bloc, contre au plus 500 précédemment.
+On voit que dépassé une quarantaine d'instructions, on reste environ, à une moyenne de 500 instructions par bloc, contre pas plus de 300 précédemment.
+
+On peut également comparer ces deux manières de choisir les instructions avec le score que j'ai mis en place pour déterminer le meilleur ordre :
+
+![](score_comparatif_100.png)
+![](score_comparatif_400.png)
 
 En utilisant la taille moyenne des blocs mesurée dans Box64 avec les programmes de Embench, on peut maintenant estimer la probabilité qu'un bloc pris au hasard puisse être traduit entièrement en matériel, en fonction du nombre d'instructions gérées par le matériel.
 
