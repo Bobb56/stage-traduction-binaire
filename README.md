@@ -419,8 +419,60 @@ Pour calculer une telle formule il est nécessaire de mesurer certaines grandeur
 - Le temps de passage du matériel au logiciel
 
 Pour les deux premières grandeurs, on mesure expérimentalement dans Box64 :
-- Taille moyenne des blocs : **TODO**
-- Nombre moyen de blocs à traduire : **TODO**
+
+| Programme         | Taille moyenne des blocs |
+| ----------------- | ------------------------ |
+| aha-mont64        | 2.34                     |
+| crc32             | 3.68                     |
+| cubic             | 3.02                     |
+| edn               | 3.21                     |
+| huffbench         | 3.55                     |
+| matmult-int       | 3.44                     |
+| md5sum            | 3.57                     |
+| minver            | 3.39                     |
+| nbody             | 2.38                     |
+| nettle-aes        | 3.27                     |
+| nettle-sha256     | 3.07                     |
+| nsichneu          | 3.28                     |
+| picojpeg          | 2.90                     |
+| primecount        | 3.45                     |
+| qrduino           | 2.71                     |
+| sglib-combined    | 3.09                     |
+| slre              | 3.16                     |
+| st                | 2.98                     |
+| statemate         | 3.57                     |
+| tarfind           | 3.42                     |
+| ud                | 3.51                     |
+| wikisort          | 2.14                     |
+| **Total**         |                          |
+
+
+| Programme         | Nombre de blocs traduits |
+| ----------------- | ------------------------ |
+| aha-mont64        | 2.34                     |
+| crc32             | 3.68                     |
+| cubic             | 3.02                     |
+| edn               | 3.21                     |
+| huffbench         | 3.55                     |
+| matmult-int       | 3.44                     |
+| md5sum            | 3.57                     |
+| minver            | 3.39                     |
+| nbody             | 2.38                     |
+| nettle-aes        | 3.27                     |
+| nettle-sha256     | 3.07                     |
+| nsichneu          | 3.28                     |
+| picojpeg          | 2.90                     |
+| primecount        | 3.45                     |
+| qrduino           | 2.71                     |
+| sglib-combined    | 3.09                     |
+| slre              | 3.16                     |
+| st                | 2.98                     |
+| statemate         | 3.57                     |
+| tarfind           | 3.42                     |
+| ud                | 3.51                     |
+| wikisort          | 2.14                     |
+| **Total**         |                          |
+
 
 Et pour le temps de passage du matériel au logiciel, il est très difficile de l'estimer de manière pertinente avec les autres grandeurs, nous allons donc dans un premier temps considérer que la seule pénalité de la traduction en lociciel est le temps que ça prend.
 
